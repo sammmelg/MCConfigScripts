@@ -48,3 +48,6 @@ def dw_install():
     os.system("cd /home/pi/Downloads")
     os.system("chmod +x dwagent.sh")
     os.system("sudo ./dwagent.sh")
+
+if __name__ == "__main__":
+    main()
