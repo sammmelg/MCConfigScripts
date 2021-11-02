@@ -1,4 +1,3 @@
-# focusaid
+# MCConfigScripts
 
-Python script used to change LOCAMS camera configuration on the pi to be able to focus during the daytime,
-then revert it back to night time mode for observation.
+Python scripts used to change LOCAMS camera/RPi configurations for optimized set up
