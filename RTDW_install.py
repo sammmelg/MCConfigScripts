@@ -44,7 +44,7 @@ def clock_install():
 
 
 def dw_install():
-    os.system("cd /home/pi/Downloads")
+    os.chdir("/home/pi/Downloads")
     os.system("chmod +x dwagent.sh")
     os.system("sudo ./dwagent.sh")
 
