@@ -1,6 +1,5 @@
 import os
 
-main()
 
 def main():
     clock_install()
