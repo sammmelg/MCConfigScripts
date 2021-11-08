@@ -2,6 +2,9 @@ import os
 
 
 def main():
+    # Download lowell_report.py
+    print("Downloading lowell_report.py...")
+    get_lowell()
 
     # Run clock install function
     clock_install()
@@ -27,8 +30,14 @@ def main():
     quit()
 
 
-def clock_install():
+def choice_check(choice):
+    if choice == "n":
+        quit()
+    while choice != "y":
+        choice = input("Please try again (y/n) ")
 
+
+def clock_install():
     # Check that clock is detected
     os.system("sudo i2cdetect -y 1")
 
@@ -72,20 +81,34 @@ def dw_install():
     os.system("sudo ./dwagent.sh")
 
 
+def get_lowell():
+    # Change directory to iStream folder
+    os.chdir("/home/pi/source/RMS/iStream")
+
+    # Clone the repo from github
+    os.system("git clone "
+              "https://sammmelg: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@github.com/sammmelg/"
+              "lowell_report/main/lowell_report.py")
+
+    # Change directory into repo folder
+    os.chdir("/home/pi/source/RMS/iStream/lowell_report")
+
+    # Move the file up to the iStream folder
+    os.system("mv lowell_report.py /home/pi/source/RMS/iStream")
+
+    # Go back to the iStream folder
+    os.chdir("/home/pi/source/RMS/iStream")
+
+    # Remove the un-needed folder
+    os.remove("/home/pi/source/RMS/lowell_report")
+
+
 def ssh_gen():
     # Change directory to ssh folder
     os.chdir("/home/pi/.ssh")
 
     # Run key gen line
     os.system("sudo ssh-keygen -t rsa -b 4096 -o -a 100")
-
-
-def choice_check(choice):
-    if choice == "n":
-        quit()
-    while choice != "y":
-        choice = input("Please try again (y/n) ")
-    return choice
 
 
 if __name__ == "__main__":
