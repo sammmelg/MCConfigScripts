@@ -2,13 +2,28 @@ import os
 
 
 def main():
+
+    # Run clock install function
     clock_install()
+
+    # Ask the user if they are ready to install dwagent
     dw_choice = input("Are you ready to continue to DWService client install? (y/n) ")
-    if dw_choice == "n":
-        quit()
-    while dw_choice != "y":
-        dw_choice = input("Are you ready to continue to DWService client install? (y/n) ")
+
+    # Make sure the user's choice is valid
+    choice_check(dw_choice)
+
+    # Install dwagent
     dw_install()
+
+    # Ask user if they are ready to generate ssh keys
+    ssh_choice = input("Are you ready to generate ssh keys? (y/n) ")
+
+    # Make sure the user's choice is valid
+    choice_check(ssh_choice)
+
+    # Generate ssh keys
+    ssh_gen()
+
     quit()
 
 
@@ -44,9 +59,34 @@ def clock_install():
 
 
 def dw_install():
+    # Go to the downloads folder
     os.chdir("/home/pi/Downloads")
+
+    # Pull the dwagent.sh file from github
+    os.system("wget https://github.com/sammmelg/locamsfiles/raw/main/dwagent.sh")
+
+    # Make dwagent installable
     os.system("chmod +x dwagent.sh")
+
+    # Install dwagent
     os.system("sudo ./dwagent.sh")
+
+
+def ssh_gen():
+    # Change directory to ssh folder
+    os.chdir("/home/pi/.ssh")
+
+    # Run key gen line
+    os.system("sudo ssh-keygen -t rsa -b 4096 -o -a 100")
+
+
+def choice_check(choice):
+    if choice == "n":
+        quit()
+    while choice != "y":
+        choice = input("Please try again (y/n) ")
+    return choice
+
 
 if __name__ == "__main__":
     main()
